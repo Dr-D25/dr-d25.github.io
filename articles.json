@@ -1,5 +1,16 @@
 [
-  { "slug": "welcome",     "title": "Добро пожаловать" },
-  { "slug": "second-post", "title": "Вторая заметка" },
-  { "slug": "test", "title": "Заголовок в сайдбаре" }
+  {
+    "slug": "welcome",
+    "title": "Добро пожаловать",
+    "date": "2026-10-21",
+    "tags": ["meta"],
+    "description": "Что здесь будет и как всё устроено"
+  },
+  {
+    "slug": "sample-analysis",
+    "title": "Разбор шифровальщика X",
+    "date": "2026-10-20",
+    "tags": ["malware", "re", "ioc"],
+    "description": "Статический и динамический анализ образца"
+  }
 ]
