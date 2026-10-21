@@ -50,10 +50,12 @@ async function loadArticle(slug) {
     if (!res.ok) throw new Error('Файл не найден');
     const text = await res.text();
     articleEl.innerHTML = marked.parse(text);
-    articleEl.querySelectorAll('pre code').forEach(el => {
-      el.removeAttribute('data-highlighted');
-      hljs.highlightElement(el);
-    });
+    if (typeof hljs !== 'undefined') {
+      articleEl.querySelectorAll('pre code').forEach(el => {
+        el.removeAttribute('data-highlighted');
+        hljs.highlightElement(el);
+      });
+    }
     articleEl.scrollTop = 0;
     document.title = `${meta.title} — ~/notes`;
   } catch (e) {
