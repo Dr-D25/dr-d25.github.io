@@ -1,5 +1,5 @@
 [
   { "slug": "welcome",     "title": "Добро пожаловать" },
   { "slug": "second-post", "title": "Вторая заметка" },
-  { "slug": "Test", "title": "Заголовок в сайдбаре" }
+  { "slug": "test", "title": "Заголовок в сайдбаре" }
 ]
