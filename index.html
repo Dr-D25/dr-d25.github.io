@@ -12,7 +12,14 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-header">~/articles</div>
+    
+      <div class="sidebar-controls">
+        <input id="search" type="text" placeholder="grep..." autocomplete="off" spellcheck="false">
+        <div id="tag-filter" class="tag-filter"></div>
+      </div>
+    
       <nav id="article-list"></nav>
+    
       <div class="sidebar-footer">
         <span class="prompt">$</span> <span class="blink">_</span>
       </div>
