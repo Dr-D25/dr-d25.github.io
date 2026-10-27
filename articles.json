@@ -1,11 +1,11 @@
 [
   {
-    "slug": "welcome",
-    "title": "Добро пожаловать",
+    "slug": "Windows_API",
+    "title": "Windows_API",
     "section": "notes",
-    "date": "2026-10-21",
-    "tags": ["meta"],
-    "description": "Что здесь будет и как всё устроено"
+    "date": "2026-10-27",
+    "tags": ["notes", "API", "Windows"],
+    "description": "Structures"
   },
   {
     "slug": "malware-x",
