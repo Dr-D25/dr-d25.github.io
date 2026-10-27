@@ -8,6 +8,14 @@
     "description": "Structures"
   },
   {
+    "slug": "Payloads_from_logs",
+    "title": "Payloads_from_logs",
+    "section": "notes",
+    "date": "2026-10-27",
+    "tags": ["notes", "payload", "web"],
+    "description": "payloads"
+  },
+  {
     "slug": "malware-x",
     "title": "Разбор шифровальщика X",
     "section": "articles",
