@@ -1,12 +1,20 @@
-const listEl      = document.getElementById('article-list');
-const articleEl   = document.getElementById('article');
-const headerEl    = document.getElementById('content-header');
-const searchEl    = document.getElementById('search');
-const tagFilterEl = document.getElementById('tag-filter');
+const sectionTabsEl = document.getElementById('section-tabs');
+const listEl        = document.getElementById('article-list');
+const articleEl     = document.getElementById('article');
+const headerEl      = document.getElementById('content-header');
+const searchEl      = document.getElementById('search');
+const tagFilterEl   = document.getElementById('tag-filter');
 
-let articles = [];
-let currentTag = null;
-let searchQuery = '';
+const SECTIONS = [
+  { id: 'notes',    label: 'заметки' },
+  { id: 'articles', label: 'статьи'  },
+  { id: 'reports',  label: 'отчёты'  },
+];
+
+let articles       = [];
+let currentSection = SECTIONS[0].id;
+let currentTag     = null;
+let searchQuery    = '';
 
 marked.setOptions({ breaks: true, gfm: true });
 
@@ -17,25 +25,59 @@ async function loadArticles() {
     if (!res.ok) throw new Error('articles.json не найден');
     articles = await res.json();
     articles.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+    const slug = location.hash.slice(1);
+    const meta = slug && articles.find(a => a.slug === slug);
+    currentSection = meta?.section || SECTIONS[0].id;
+
+    renderSectionTabs();
     renderTagFilter();
     renderList();
 
-    const slug = location.hash.slice(1) || articles[0]?.slug;
     if (slug) loadArticle(slug);
   } catch (e) {
     listEl.innerHTML = `<div style="padding:20px;color:var(--error);">${e.message}</div>`;
   }
 }
 
-/* ---------- фильтр по тегам ---------- */
+/* ---------- разделы ---------- */
+function renderSectionTabs() {
+  sectionTabsEl.innerHTML = '';
+  SECTIONS.forEach(s => {
+    const count = articles.filter(a => a.section === s.id).length;
+    const btn = document.createElement('button');
+    btn.className = 'section-tab' + (currentSection === s.id ? ' active' : '');
+    btn.innerHTML =
+      `<span class="section-label">${s.label}</span>` +
+      `<span class="section-count">${count}</span>`;
+    btn.onclick = () => {
+      if (currentSection === s.id) return;
+      currentSection = s.id;
+      currentTag = null;
+      renderSectionTabs();
+      renderTagFilter();
+      renderList();
+    };
+    sectionTabsEl.appendChild(btn);
+  });
+}
+
+/* ---------- теги ---------- */
 function allTags() {
   const set = new Set();
-  articles.forEach(a => (a.tags || []).forEach(t => set.add(t)));
+  articles
+    .filter(a => a.section === currentSection)
+    .forEach(a => (a.tags || []).forEach(t => set.add(t)));
   return [...set].sort();
 }
 
 function renderTagFilter() {
   tagFilterEl.innerHTML = '';
+  const tags = allTags();
+  if (!tags.length) {
+    tagFilterEl.innerHTML = '<span style="color:var(--fg-dim);font-size:11px;">// нет тегов</span>';
+    return;
+  }
   const chip = (label, value) => {
     const b = document.createElement('button');
     b.className = 'tag-chip' + (currentTag === value ? ' active' : '');
@@ -48,12 +90,13 @@ function renderTagFilter() {
     return b;
   };
   tagFilterEl.appendChild(chip('все', null));
-  allTags().forEach(t => tagFilterEl.appendChild(chip(t, t)));
+  tags.forEach(t => tagFilterEl.appendChild(chip(t, t)));
 }
 
 /* ---------- список ---------- */
 function getFiltered() {
   return articles.filter(a => {
+    if (a.section !== currentSection) return false;
     if (currentTag && !(a.tags || []).includes(currentTag)) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -74,7 +117,7 @@ function renderList() {
   listEl.innerHTML = '';
   const items = getFiltered();
   if (!items.length) {
-    listEl.innerHTML = '<div style="padding:12px 20px;color:var(--fg-dim);font-size:13px;">// ничего не найдено</div>';
+    listEl.innerHTML = '<div style="padding:12px 20px;color:var(--fg-dim);font-size:13px;">// пусто</div>';
     return;
   }
   items.forEach(a => {
@@ -97,11 +140,20 @@ async function loadArticle(slug) {
     return;
   }
 
+  /* синхронизируем активный раздел с разделом статьи */
+  if (currentSection !== meta.section) {
+    currentSection = meta.section;
+    currentTag = null;
+    renderSectionTabs();
+    renderTagFilter();
+    renderList();
+  }
+
   document.querySelectorAll('#article-list a').forEach(a => {
     a.classList.toggle('active', a.dataset.slug === slug);
   });
 
-  headerEl.textContent = `~/notes $ cat articles/${slug}.md`;
+  headerEl.textContent = `~/${meta.section} $ cat ${slug}.md`;
   articleEl.innerHTML = '<p class="loading">Загрузка...</p>';
 
   try {
@@ -125,24 +177,25 @@ async function loadArticle(slug) {
     }
 
     articleEl.scrollTop = 0;
-    document.title = `${meta.title} — ~/notes`;
+    document.title = `${meta.title} — ~/blog`;
   } catch (e) {
     articleEl.innerHTML = `<p style="color:var(--error);">Ошибка загрузки: ${e.message}</p>`;
   }
 }
 
 function buildMeta(meta, minutes) {
+  const sectionLabel = SECTIONS.find(s => s.id === meta.section)?.label || meta.section;
   const tags = (meta.tags || [])
     .map(t => `<span class="meta-tag">${escapeHtml(t)}</span>`)
     .join('');
-  const parts = [];
+  const parts = [`<span class="meta-section">/${sectionLabel}</span>`];
   if (meta.date) parts.push(`<span class="meta-date">${meta.date}</span>`);
   parts.push(`<span class="meta-time">~${minutes} мин</span>`);
   if (tags) parts.push(`<span class="meta-tags">${tags}</span>`);
   return `<div class="article-meta">${parts.join('<span class="meta-sep">·</span>')}</div>`;
 }
 
-/* ---------- callouts > [!WARNING] ---------- */
+/* ---------- callouts ---------- */
 function processCallouts(root) {
   root.querySelectorAll('blockquote').forEach(bq => {
     const first = bq.querySelector('p');
@@ -155,7 +208,7 @@ function processCallouts(root) {
   });
 }
 
-/* ---------- TOC из h2/h3 ---------- */
+/* ---------- TOC ---------- */
 function buildToc() {
   const headings = articleEl.querySelectorAll('h2, h3');
   if (headings.length < 2) return;
