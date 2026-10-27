@@ -2,15 +2,25 @@
   {
     "slug": "welcome",
     "title": "Добро пожаловать",
+    "section": "notes",
     "date": "2026-10-21",
     "tags": ["meta"],
     "description": "Что здесь будет и как всё устроено"
   },
   {
-    "slug": "sample-analysis",
+    "slug": "malware-x",
     "title": "Разбор шифровальщика X",
+    "section": "articles",
     "date": "2026-10-20",
-    "tags": ["malware", "re", "ioc"],
+    "tags": ["malware", "re"],
     "description": "Статический и динамический анализ образца"
+  },
+  {
+    "slug": "htb-something",
+    "title": "HTB: Machine Writeup",
+    "section": "reports",
+    "date": "2026-10-19",
+    "tags": ["pentest", "writeup"],
+    "description": "Прохождение лабораторной машины"
   }
 ]
