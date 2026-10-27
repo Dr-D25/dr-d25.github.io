@@ -19,7 +19,7 @@
     "slug": "Base64 -> c2 Powershell",
     "title": "Base64 -> c2 Powershell",
     "section": "reports",
-    "date": "2026-10-26",
+    "date": "2026-10-27",
     "tags": ["re", "base64", "powershell"],
     "description": "Research"
   }
