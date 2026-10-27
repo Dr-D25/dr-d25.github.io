@@ -157,7 +157,7 @@ async function loadArticle(slug) {
   articleEl.innerHTML = '<p class="loading">Загрузка...</p>';
 
   try {
-    const res = await fetch(`articles/${slug}.md`);
+    const res = await fetch(`articles/${meta.section}/${slug}.md`);
     if (!res.ok) throw new Error('Файл не найден');
     const text = await res.text();
 
