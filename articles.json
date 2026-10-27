@@ -16,11 +16,11 @@
     "description": "Статический и динамический анализ образца"
   },
   {
-    "slug": "htb-something",
-    "title": "HTB: Machine Writeup",
+    "slug": "Base64 -> c2 Powershell",
+    "title": "Base64 -> c2 Powershell",
     "section": "reports",
-    "date": "2026-10-19",
-    "tags": ["pentest", "writeup"],
-    "description": "Прохождение лабораторной машины"
+    "date": "2026-10-26",
+    "tags": ["re", "base64", "powershell"],
+    "description": "Research"
   }
 ]
