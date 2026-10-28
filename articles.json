@@ -16,6 +16,14 @@
     "description": "payloads"
   },
   {
+    "slug": "SSDEEP_MalRegex",
+    "title": "SSDEEP_MalRegex",
+    "section": "notes",
+    "date": "2026-10-28",
+    "tags": ["notes", "SSDEEP"],
+    "description": "Malware SSDEEP"
+  },
+  {
     "slug": "malware-x",
     "title": "Разбор шифровальщика X",
     "section": "articles",
