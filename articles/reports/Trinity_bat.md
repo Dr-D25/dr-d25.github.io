@@ -1,6 +1,6 @@
 # Trinity_bat
 
-# B.ps1
+## B.ps1
 
 ```powershell
 # --- 設定 ---
@@ -207,7 +207,7 @@ while ($true) {
 ```
 
 
-# A.ps1
+## A.ps1
 
 ```powershell
 # A.ps1
@@ -442,7 +442,7 @@ function StartHiddenScript($scriptPath) {
 ```
 
 
-# C.ps1
+## C.ps1
 
 Третий скрипт - шелл к командному центру.
 
@@ -561,7 +561,7 @@ while ($true) {
 ```
 
 
-# Итог
+## Итог
 
 Эта система состоящая из:
 - Удалённого доступа и исполнения команд (`C.ps1`);
