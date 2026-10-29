@@ -48,6 +48,14 @@
     "description": "Research"
   },
   {
+    "slug": "COM_Virus_Zombi",
+    "title": "COM Virus Zombi",
+    "section": "reports",
+    "date": "2026-10-29",
+    "tags": ["asm", "old_viruses", "com"],
+    "description": "Research"
+  },
+  {
     "slug": "Trinity_bat",
     "title": "Trinity_bat",
     "section": "reports",
