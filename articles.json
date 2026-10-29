@@ -40,6 +40,14 @@
     "description": "Research"
   },
   {
+    "slug": "Virus_Dust",
+    "title": "OLD_Virus Dust",
+    "section": "reports",
+    "date": "2026-10-29",
+    "tags": ["asm", "old_viruses", "WinCE"],
+    "description": "Research"
+  },
+  {
     "slug": "Trinity_bat",
     "title": "Trinity_bat",
     "section": "reports",
