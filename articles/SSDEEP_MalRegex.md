@@ -186,3 +186,41 @@
 6144:.{7}rGrrrr.rrrrr.rrrrrr.rrrrr.rrrrrr.rrrr.+
 768:.HcLI4\/WF4h\+hFxNat7NK9Scg1lWzQn.{13}W\/uvoC7X5SofgZo6j26.:.p\/h\+.{7}l1l1.+
 ```
+## Drivers
+```regex
+3072:.tKOsNi6cWgOEkbaFKnjiqQnjwbufspN3GGomU3\/03ucYfBLx9pypSwbYtlZ9Ed.:.IJjiJcbI03GBc3ucY5DCSj
+```
+## Go
+```regex
+49152:.RpK6fWxZHGQAulw19JRgfFC3b7HJFlwNwrH6PfLsdRyzVeAXH1SX8wRanDyBZO.:.KkWvw1rGtCfHur4EbRy.{2}4.{2}E.+
+49152:\w{9}rb\/T.vO90d7HjmAFd4A64nsfJ.+
+24576:.{30,}2Bele5IK2.+
+49152:T6A6sw7kBBVRXAaKjQNkBoYFK8BZja\/rqI5ZjqYHK9\/9M2aj\+NDtk8iKQK1K6f8.:T6BJUoROZfIA8Xf8xumvBh8huTEEm.+
+98304:.pKy\/jOLjWCkgGNkwa.{2}PW4L3HxmpESO\/:.\/AEggDa.usTSO/.*
+```
+
+## Rust
+```regex
+393216:\/5VBcu53uHEiREyiEfhBq5MixcXGp1C1.:Z4REyiEfXiQ6.*
+```
+
+## Load_drop_inj
+```regex
+196608:Q9Ml6vYQ8VvPeb1UBDglPC0Y\/OnFt7yO7uq5Ev.q07kUM:QB8VvPeb1ADOC0Y\/OnFt7yOBE.7kUM
+12288:.{14,}rs9.9bnEpsNzwHJem7OzwHJeeL.+
+```
+
+## DotNET
+```regex
+12288:snEy6xMGNTCWsTGQ4\/.+
+49152:.jLuSh3i\+FtvkMzT\+.+
+24576:lKKKKKKKKKKKKK.+
+24576:snt6xDx.+
+6144:.{8}9wz4ZoeETEW1gbpJA3KpSL0pD.+
+1536:.o2sxEur907B9eyfpOMrzXkL5MVka2WyCVMz.*
+```
+
+## Rat_backdoor
+```regex
+12288:.mnk7iLJbpIpiRL6I2WhSKQ9ZsfZQS.*
+```
