@@ -56,6 +56,14 @@
     "description": "Research"
   },
   {
+    "slug": "research_RS_elf",
+    "title": "ReverseShell Linux_x86",
+    "section": "reports",
+    "date": "2026-11-01",
+    "tags": ["re", "reverseshell", "c2"],
+    "description": "Research"
+  },
+  {
     "slug": "Trinity_bat",
     "title": "Trinity_bat",
     "section": "reports",
