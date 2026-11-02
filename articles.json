@@ -24,12 +24,12 @@
     "description": "Malware SSDEEP"
   },
   {
-    "slug": "malware-x",
-    "title": "Разбор шифровальщика X",
+    "slug": "AV_research",
+    "title": "Исследование АV",
     "section": "articles",
-    "date": "2026-10-20",
-    "tags": ["malware", "re"],
-    "description": "Статический и динамический анализ образца"
+    "date": "2026-11-02",
+    "tags": ["AV", "research"],
+    "description": "AV research"
   },
   {
     "slug": "Base64_c2_Powershell",
