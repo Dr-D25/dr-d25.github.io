@@ -56,6 +56,14 @@
     "description": "Research"
   },
   {
+    "slug": "Parser_NVD",
+    "title": "Парсер CVE",
+    "section": "scripts",
+    "date": "2026-11-03",
+    "tags": ["cve", "python", "script"],
+    "description": "dev"
+  },
+  {
     "slug": "research_RS_elf",
     "title": "ReverseShell Linux_x86",
     "section": "reports",
