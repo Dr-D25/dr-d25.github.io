@@ -64,6 +64,14 @@
     "description": "dev"
   },
   {
+    "slug": "vm_detect",
+    "title": "VM / Sandbox Detector",
+    "section": "scripts",
+    "date": "2026-11-03",
+    "tags": ["VM", "python", "script"],
+    "description": "dev"
+  },
+  {
     "slug": "research_RS_elf",
     "title": "ReverseShell Linux_x86",
     "section": "reports",
