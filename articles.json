@@ -72,6 +72,14 @@
     "description": "dev"
   },
   {
+    "slug": "DllExportSweep",
+    "title": "Вызов функций по ординалу",
+    "section": "scripts",
+    "date": "2026-11-04",
+    "tags": ["dll", "ps1", "script"],
+    "description": "dev"
+  },
+  {
     "slug": "vm_detect",
     "title": "VM / Sandbox Detector",
     "section": "scripts",
