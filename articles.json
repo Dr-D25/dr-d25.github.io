@@ -64,7 +64,7 @@
     "description": "dev"
   },
   {
-    "slug": "hexwriter",
+    "slug": "hex_writer",
     "title": "Патч файлов",
     "section": "scripts",
     "date": "2026-11-04",
