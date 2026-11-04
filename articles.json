@@ -80,6 +80,14 @@
     "description": "dev"
   },
   {
+    "slug": "generator_files",
+    "title": "Генератор файлов",
+    "section": "scripts",
+    "date": "2026-11-04",
+    "tags": ["scripts", "python", "extension"],
+    "description": "dev"
+  },
+  {
     "slug": "collect_artifact_linux",
     "title": "Linux Artifact Collector",
     "section": "scripts",
