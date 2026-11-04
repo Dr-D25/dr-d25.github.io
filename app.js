@@ -1,7 +1,7 @@
 /* =========================================================
    Константы
    ========================================================= */
-const SITE_NAME = 'Dr-D25';
+const SITE_NAME = '0xDbgMan';
 const SECTIONS = {
   notes:    'Заметки',
   articles: 'Статьи',
@@ -19,7 +19,7 @@ const state = {
 };
 
 /* =========================================================
-   DOM
+   DOM helpers
    ========================================================= */
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -52,14 +52,16 @@ const emptyHome      = $('#empty-home');
 marked.setOptions({ gfm: true, breaks: true });
 
 /* =========================================================
-   Инициализация
+   Init
    ========================================================= */
 async function init() {
   applyTheme(document.documentElement.getAttribute('data-theme') || 'dark');
   bindThemeToggle();
   bindSearch();
   bindBack();
+  startClock();
   await loadArticles();
+  updateStats();
   window.addEventListener('hashchange', route);
   route();
 }
@@ -105,7 +107,40 @@ async function loadArticles() {
 }
 
 /* =========================================================
-   Роутинг (hash)
+   Счётчики и часы
+   ========================================================= */
+function updateStats() {
+  const postsEl = $('#stat-posts');
+  const tagsEl = $('#stat-tags');
+  const sectionsEl = $('#stat-sections');
+  if (!postsEl) return;
+
+  const tagSet = new Set();
+  const sectionSet = new Set();
+  state.articles.forEach(a => {
+    (a.tags || []).forEach(t => tagSet.add(t));
+    if (a.section) sectionSet.add(a.section);
+  });
+
+  postsEl.textContent = state.articles.length;
+  tagsEl.textContent = tagSet.size;
+  sectionsEl.textContent = sectionSet.size;
+}
+
+function startClock() {
+  const el = $('#live-clock');
+  if (!el) return;
+  const tick = () => {
+    const d = new Date();
+    const p = n => String(n).padStart(2, '0');
+    el.textContent = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  };
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* =========================================================
+   Роутинг
    ========================================================= */
 function route() {
   const hash = location.hash.replace(/^#/, '') || '/';
@@ -139,7 +174,6 @@ function switchView(name) {
 }
 
 function updateNavActive(name) {
-  // В режиме статьи подсвечиваем "Главная"
   const navName = name === 'article' ? 'home' : name;
   $$('.nav a').forEach(a => {
     a.classList.toggle('active', a.dataset.nav === navName);
@@ -154,7 +188,6 @@ function showHome(tag = null) {
   switchView('home');
   document.title = `${SITE_NAME} — Заметки`;
   breadcrumb.textContent = '';
-
   renderFilterBadge();
   renderPostList();
 }
@@ -195,11 +228,14 @@ function renderPostList() {
   }
   emptyHome.hidden = true;
 
-  filtered.forEach(meta => {
+  filtered.forEach((meta, i) => {
+    const idx = String(i + 1).padStart(4, '0');
     const card = document.createElement('article');
     card.className = 'post-card';
+    card.dataset.index = idx;
     card.innerHTML = `
       <div class="post-meta">
+        <span class="meta-id">#${idx}</span>
         ${meta.date ? `<span><i class="far fa-calendar"></i> ${formatDate(meta.date)}</span>` : ''}
         ${meta.section ? `<span><i class="fas fa-folder"></i> ${SECTIONS[meta.section] || meta.section}</span>` : ''}
       </div>
@@ -207,7 +243,7 @@ function renderPostList() {
       ${meta.description ? `<p class="post-desc">${escapeHtml(meta.description)}</p>` : ''}
       ${(meta.tags || []).length ? `
         <div class="post-tags">
-          ${meta.tags.map(t => `<span class="tag" data-tag="${escapeHtml(t)}">#${escapeHtml(t)}</span>`).join('')}
+          ${meta.tags.map(t => `<span class="tag" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</span>`).join('')}
         </div>` : ''}
     `;
 
@@ -274,7 +310,6 @@ async function showArticle(slug) {
     highlightCode(articleContent);
     buildPostNav(slug);
 
-    // плавный скролл к началу
     window.scrollTo({ top: 0, behavior: 'instant' });
   } catch (e) {
     articleContent.innerHTML = `<div class="error-msg">Ошибка загрузки: ${e.message}</div>`;
@@ -283,9 +318,11 @@ async function showArticle(slug) {
 
 function buildArticleHeader(meta, minutes, words) {
   const parts = [];
+  const fp = fingerprint(meta.slug);
+  parts.push(`<span class="article-fp"><i class="fas fa-fingerprint"></i> 0x${fp}</span>`);
   if (meta.date) parts.push(`<span><i class="far fa-calendar"></i> ${formatDate(meta.date)}</span>`);
   if (meta.section) parts.push(`<span><i class="fas fa-folder"></i> ${SECTIONS[meta.section] || meta.section}</span>`);
-  parts.push(`<span><i class="far fa-clock"></i> ${minutes} мин чтения</span>`);
+  parts.push(`<span><i class="far fa-clock"></i> ${minutes} мин</span>`);
   parts.push(`<span><i class="fas fa-align-left"></i> ${words} слов</span>`);
 
   return `
@@ -320,7 +357,7 @@ function highlightCode(root) {
   if (typeof hljs === 'undefined') return;
   $$('pre code', root).forEach(el => {
     el.removeAttribute('data-highlighted');
-    try { hljs.highlightElement(el); } catch (e) { /* noop */ }
+    try { hljs.highlightElement(el); } catch (e) {}
   });
 }
 
@@ -371,7 +408,6 @@ function buildPostNav(slug) {
     return;
   }
 
-  // articles отсортированы «свежее сверху», значит prev (новее) = idx-1, next (старее) = idx+1
   const prev = state.articles[idx - 1];
   const next = state.articles[idx + 1];
 
@@ -400,7 +436,6 @@ function showArchive() {
   const total = state.articles.length;
   $('#archive-count').textContent = `Всего записей: ${total}`;
 
-  // группировка по годам
   const groups = new Map();
   state.articles.forEach(a => {
     const year = (a.date || '').slice(0, 4) || '—';
@@ -457,7 +492,7 @@ function showTags() {
   sorted.forEach(([tag, count]) => {
     const a = document.createElement('a');
     a.href = `#/tag/${encodeURIComponent(tag)}`;
-    a.innerHTML = `#${escapeHtml(tag)} <span class="tag-count">${count}</span>`;
+    a.innerHTML = `${escapeHtml(tag)} <span class="tag-count">${count}</span>`;
     tagCloud.appendChild(a);
   });
 }
@@ -483,7 +518,6 @@ function bindBack() {
 
 function formatDate(str) {
   if (!str) return '';
-  // 'YYYY-MM-DD' → '27 окт 2026'
   const months = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(str);
   if (!m) return str;
@@ -495,6 +529,14 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   }[c]));
+}
+
+function fingerprint(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h).toString(16).padStart(8, '0').toUpperCase();
 }
 
 /* =========================================================
