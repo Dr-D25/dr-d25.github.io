@@ -64,6 +64,14 @@
     "description": "dev"
   },
   {
+    "slug": "hexwriter",
+    "title": "Патч файлов",
+    "section": "scripts",
+    "date": "2026-11-04",
+    "tags": ["patch", "python", "script"],
+    "description": "dev"
+  },
+  {
     "slug": "vm_detect",
     "title": "VM / Sandbox Detector",
     "section": "scripts",
