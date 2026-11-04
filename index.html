@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dr-D25 — Notes</title>
+  <title>Dr.D25 — Notes</title>
 
-  <!-- Тема до рендера, чтобы не было вспышки -->
   <script>
     (function () {
       var t = localStorage.getItem('theme') || 'dark';
@@ -15,48 +14,73 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Подсветка кода: два набора, переключаем disabled -->
-  <link rel="stylesheet" id="hl-dark" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <link rel="stylesheet" id="hl-dark" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
   <link rel="stylesheet" id="hl-light" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" disabled>
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="layout">
-    <!-- ================= Sidebar ================= -->
     <aside class="sidebar">
-      <div class="profile">
-        <a href="#/" class="avatar-link">
-          <img src="images/Dr-D25.png" alt="avatar" class="avatar" id="avatar">
-        </a>
-        <h1 class="name">Dr.D25</h1>
-        <p class="bio">Malware Hunter &amp; Low-Level Developer</p>
-        <div class="social">
-          <a href="https://github.com/Dr-D25" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="mailto:me@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <div class="sidebar-inner">
+
+        <div class="operator-card">
+          <div class="operator-status">
+            <span class="status-dot"></span>
+            <span class="status-label">OPERATOR · ONLINE</span>
+          </div>
+          <a href="#/" class="avatar-link">
+            <img src="assets/avatar.png" alt="avatar" class="avatar" id="avatar">
+          </a>
+          <h1 class="name">Dr.D25</h1>
+          <p class="bio">Red Teamer &amp; Low-Level Developer</p>
+          <div class="social">
+            <a href="https://github.com/Dr.D25" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:me@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
         </div>
-      </div>
 
-      <nav class="nav" id="nav">
-        <a href="#/" data-nav="home"><i class="fas fa-home"></i> <span>Главная</span></a>
-        <a href="#/archive" data-nav="archive"><i class="fas fa-box-archive"></i> <span>Архив</span></a>
-        <a href="#/tags" data-nav="tags"><i class="fas fa-tags"></i> <span>Теги</span></a>
-        <a href="#/about" data-nav="about"><i class="fas fa-user"></i> <span>Обо мне</span></a>
-      </nav>
+        <div class="sidebar-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="stat-posts">—</span>
+            <span class="stat-label">notes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="stat-tags">—</span>
+            <span class="stat-label">tags</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="stat-sections">—</span>
+            <span class="stat-label">sections</span>
+          </div>
+        </div>
 
-      <div class="sidebar-footer">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">
-          <i class="fas fa-moon"></i>
-        </button>
+        <nav class="nav" id="nav">
+          <a href="#/" data-nav="home"><i class="fas fa-home"></i> <span>Главная</span><span class="nav-kbd">⌘H</span></a>
+          <a href="#/archive" data-nav="archive"><i class="fas fa-box-archive"></i> <span>Архив</span><span class="nav-kbd">⌘A</span></a>
+          <a href="#/tags" data-nav="tags"><i class="fas fa-tags"></i> <span>Теги</span><span class="nav-kbd">⌘T</span></a>
+          <a href="#/about" data-nav="about"><i class="fas fa-user"></i> <span>Обо мне</span><span class="nav-kbd">⌘I</span></a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="system-status">
+            <span class="status-dot"></span>
+            <span>SYSTEM · NOMINAL</span>
+          </div>
+          <div class="live-clock" id="live-clock">--:--:--</div>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+
       </div>
     </aside>
 
-    <!-- ================= Main ================= -->
     <main class="main" id="main">
       <div class="topbar">
         <button id="back-btn" class="back-btn" hidden>
@@ -65,24 +89,27 @@
         <span class="breadcrumb" id="breadcrumb"></span>
       </div>
 
-      <!-- ---- Home ---- -->
+      <!-- Home -->
       <section class="view" id="view-home">
         <div class="home-hero">
-          <h2 class="home-title">Все записи</h2>
+          <div class="hero-title-wrap">
+            <span class="hero-prefix">// LOG</span>
+            <h2 class="home-title">Все записи</h2>
+          </div>
           <div class="search-wrap">
             <i class="fas fa-search"></i>
-            <input type="text" id="search" placeholder="Поиск по заголовку, описанию, тегам..." autocomplete="off">
+            <input type="text" id="search" placeholder="grep..." autocomplete="off">
           </div>
         </div>
         <div class="filter-badge" id="filter-badge" hidden></div>
         <div class="post-list" id="post-list"></div>
         <div class="empty" id="empty-home" hidden>
           <i class="fas fa-ghost"></i>
-          <p>Ничего не найдено</p>
+          <p>// no records found</p>
         </div>
       </section>
 
-      <!-- ---- Article ---- -->
+      <!-- Article -->
       <section class="view" id="view-article" hidden>
         <div class="article-layout" id="article-layout">
           <div class="article-main">
@@ -91,61 +118,57 @@
           </div>
           <aside class="toc-sidebar" id="toc-sidebar">
             <div class="toc-box">
-              <div class="toc-title"><i class="fas fa-list-ul"></i> Содержание</div>
+              <div class="toc-title">
+                <i class="fas fa-list-ul"></i> Содержание
+              </div>
               <ul class="toc-list" id="toc-list"></ul>
             </div>
           </aside>
         </div>
       </section>
 
-      <!-- ---- Archive ---- -->
       <section class="view" id="view-archive" hidden>
         <header class="view-header">
-          <h2><i class="fas fa-box-archive"></i> Архив</h2>
+          <div class="view-header-prefix">// ARCHIVE · LOG</div>
+          <h2>Архив</h2>
           <p class="view-subtitle" id="archive-count"></p>
         </header>
         <div class="archive-list" id="archive-list"></div>
       </section>
 
-      <!-- ---- Tags ---- -->
       <section class="view" id="view-tags" hidden>
         <header class="view-header">
-          <h2><i class="fas fa-tags"></i> Теги</h2>
+          <div class="view-header-prefix">// TAXONOMY · INDEX</div>
+          <h2>Теги</h2>
           <p class="view-subtitle">Все теги на сайте</p>
         </header>
         <div class="tag-cloud" id="tag-cloud"></div>
       </section>
 
-      <!-- ---- About ---- -->
       <section class="view" id="view-about" hidden>
         <header class="view-header">
-          <h2><i class="fas fa-user"></i> Обо мне</h2>
+          <div class="view-header-prefix">// OPERATOR · PROFILE</div>
+          <h2>Обо мне</h2>
         </header>
         <article class="article-content">
-          <p>Привет. Я - <strong>Dr.D25</strong>, занимаюсь вирусным анализом, реверс-инжинирингом и иногда пентестом.</p>
-          <p>Здесь я пишу заметки, разборы малвари, и всякое, что придёт в голову.</p>
-          <p><strong>WhiteHat</strong></p>
+          <div class="markdown-body">
+            <p>Привет. Я — <strong>Dr.D25</strong>, занимаюсь вирусным анализом, реверс-инжинирингом и пентестом.</p>
+            <p>Здесь я пишу заметки, разборы малвари, и всякое, что придёт в голову.</p>
 
-          <h2>Стек</h2>
-          <ul>
-            <li>C / ASM - для инструментов и низкоуровневых задач</li>
-            <li>Python / Bash - для автоматизации и быстрых скриптов</li>
-            <li>IDA Pro, x64dbg ... — для RE</li>
-            <li>Forensic, Maldev</li>
-          </ul>
+            <h2>Стек</h2>
+            <ul>
+              <li>C / ASM - для инструментов и низкоуровневых задач</li>
+              <li>Python / Bash - для автоматизации и быстрых скриптов</li>
+              <li>IDA Pro, x64dbg ... — для RE</li>
+              <li>Forensic, Maldev</li>
+            </ul>
 
-          <h2>Контакты</h2>
-          <ul>
-            <li>GitHub: <a href="https://github.com/dr-d25" target="_blank" rel="noopener">@Dr.D25</a></li>
-            <li>Email: <a href="mailto:me@example.com">me@example.com</a></li>
-          </ul>
-          <br>
-          <p>
-            <h2><strong>Дисклеймер</strong></h2> <br>
-
-Пишу о вирусной аналитике и пентесте в образовательных и исследовательских целях. Материалы не являются инструкцией к атаке и не призывают к противоправным действиям. Любые тесты допустимы только в изолированной среде и с разрешения владельца систем. Не несу ответственности за использование информации третьими лицами. Всё сказанное — личное мнение.
-
-          </p>
+            <h2>Контакты</h2>
+            <ul>
+              <li>GitHub: <a href="https://github.com/Dr.D25" target="_blank" rel="noopener">@Dr.D25</a></li>
+              <li>Email: <a href="mailto:me@example.com">me@example.com</a></li>
+            </ul>
+          </div>
         </article>
       </section>
     </main>
