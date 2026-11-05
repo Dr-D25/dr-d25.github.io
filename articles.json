@@ -64,6 +64,14 @@
     "description": "dev"
   },
   {
+    "slug": "usb_shield",
+    "title": "Защита от подключения неизвестных USB",
+    "section": "scripts",
+    "date": "2026-11-05",
+    "tags": ["ps1", "windows", "script"],
+    "description": "dev"
+  },
+  {
     "slug": "hex_writer",
     "title": "Патч файлов",
     "section": "scripts",
