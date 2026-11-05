@@ -1,6 +1,6 @@
 # Защита от подключения неизвестных USB
 
-## usb_shield.ps1
+# usb_shield.ps1
 ```ps1
 param(
     [switch]$On,
@@ -296,7 +296,7 @@ Start-Monitor
 ```
 
 
-## wipeusb.ps1
+# wipeusb.ps1
 
 ```ps1
 # wipeusb.ps1 — защита от неизвестных USB
