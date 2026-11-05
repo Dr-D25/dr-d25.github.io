@@ -120,6 +120,14 @@
     "description": "Research"
   },
   {
+    "slug": "terminal_style",
+    "title": "Стили терминала",
+    "section": "env",
+    "date": "2026-11-05",
+    "tags": ["env", "terminal", "style"],
+    "description": "env"
+  },
+  {
     "slug": "Trinity_bat",
     "title": "Trinity_bat",
     "section": "reports",
